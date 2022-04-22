@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dependencies>
+    <statements>
+        <statement id="com.paasit.pai.core.DemoF02.DemoF02SQL01">
+            <observer id="com.paasit.pai.core.DemoF04.DemoF04SQL01" />
+        </statement>
+        <statement id="com.paasit.pai.core.DemoF03.DemoF03SQL01">
+            <observer id="com.paasit.pai.core.DemoF04.DemoF04SQL01" />
+        </statement>
+        <statement id="com.paasit.pai.core.DemoF01.DemoF01SQL01">
+            <observer id="com.paasit.pai.core.DemoF04.DemoF04SQL01" />
+        </statement>
+    </statements>
+</dependencies>

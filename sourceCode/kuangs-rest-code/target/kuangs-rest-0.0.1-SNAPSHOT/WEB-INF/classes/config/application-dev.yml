@@ -1,0 +1,147 @@
+# ===================================================================
+# Spring Boot configuration for the "dev" profile.
+#
+# This configuration overrides the application.yml file.
+#
+# More information on profiles: https://jhipster.github.io/profiles/
+# More information on configuration properties: https://jhipster.github.io/common-application-properties/
+# ===================================================================
+
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+eureka:
+    instance:
+        prefer-ip-address: true
+    client:
+        service-url:
+            defaultZone: http://admin:${jhipster.registry.password}@demo.k2software.com.cn:30008/eureka/
+
+ribbon: #参考地址：http://blog.didispace.com/spring-cloud-ribbon-failed-retry/，http://blog.csdn.net/dream_broken/article/details/76973834
+    eureka:
+        enabled: true
+    ConnectTimeout: 1000000 #ribbon请求连接的超时时间毫秒
+    ReadTimeout: 1000000 #请求处理的超时时间 毫秒
+    OkToRetryOnAllOperations: true #对所有请求操作都进行重试
+    # 每台服务器最多重试次数，但是首次调用不包括在内
+    MaxAutoRetries: 2 #对当前服务的重试次数（第一次分配给9082的时候，如果404，则再重试MaxAutoRetries次，如果还是404，则切换到其他服务MaxAutoRetriesNextServer决定）
+    # 最多重试多少台服务器
+    MaxAutoRetriesNextServer: 3 #切换服务的次数(比如本次请求分配给9082处理，发现404，则切换分配给9081处理，如果还是404，则返回404给客户端）
+
+hystrix:
+    command:
+        default:
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 1200000 #Hystrix断路器的超时时间，默认是1s，断路器的超时时间需要大于ribbon的超时时间，不然不会触发重试。
+            timeout:
+                enable: true ##Hystrix是否启用超时时间
+
+spring:
+    profiles:
+        active: dev,no-liquibase
+        include: swagger
+    devtools:
+        restart:
+            enabled: true
+        livereload:
+            enabled: false # we use gulp + BrowserSync for livereload
+    jackson:
+        serialization.indent_output: true
+    jpa:
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        database: MYSQL
+        show-sql: true
+        properties:
+            hibernate.id.new_generator_mappings: true
+            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: true
+    mail:
+        host: localhost
+        port: 25
+        username:
+        password:
+    messages:
+        cache-seconds: 1
+    thymeleaf:
+        cache: false
+
+# liquibase:
+#    contexts: dev
+
+# ===================================================================
+# To enable SSL, generate a certificate using:
+# keytool -genkey -alias resources -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
+#
+# You can also use Let's Encrypt:
+# https://maximilian-boehm.com/hp2121/Create-a-Java-Keystore-JKS-from-Let-s-Encrypt-Certificates.htm
+#
+# Then, modify the server.ssl properties so your "server" configuration looks like:
+#
+# server:
+#    port: 8443
+#    ssl:
+#        key-store: keystore.p12
+#        key-store-password: <your-password>
+#        keyStoreType: PKCS12
+#        keyAlias: resources
+# ===================================================================
+server:
+    port: 8088
+
+# ===================================================================
+# JHipster specific properties
+#
+# Full reference is available at: https://jhipster.github.io/common-application-properties/
+# ===================================================================
+
+jhipster:
+    http:
+        version: V_1_1 # To use HTTP/2 you will need SSL support (see above the "server.ssl" configuration)
+    security:
+        client-authorization:
+            access-token-uri: http://paicoreuaa/oauth/token
+            token-service-id: paicoreuaa
+            client-id: internal
+            client-secret: internal
+    mail: # specific JHipster mail property, for standard properties see MailProperties
+        from: resources@localhost
+        base-url: http://127.0.0.1:8087
+    metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
+        jmx.enabled: true
+        graphite: # Use the "graphite" Maven profile to have the Graphite dependencies
+            enabled: false
+            host: localhost
+            port: 2003
+            prefix: resources
+        prometheus: # Use the "prometheus" Maven profile to have the Prometheus dependencies
+            enabled: false
+            endpoint: /prometheusMetrics
+        logs: # Reports Dropwizard metrics in the logs
+            enabled: false
+            report-frequency: 60 # in seconds
+    logging:
+        logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
+            enabled: true
+            host: demo.k2software.com.cn
+            port: 5000
+            queue-size: 512
+        spectator-metrics: # Reports Spectator Circuit Breaker metrics in the logs
+            enabled: false
+            # edit spring.metrics.export.delay-millis to set report frequency
+
+# ===================================================================
+# Application specific properties
+# Add your own application properties here, see the ApplicationProperties class
+# to have type-safe configuration, like in the JHipsterProperties above
+#
+# More documentation is available at:
+# https://jhipster.github.io/common-application-properties/
+# ===================================================================
+
+application:

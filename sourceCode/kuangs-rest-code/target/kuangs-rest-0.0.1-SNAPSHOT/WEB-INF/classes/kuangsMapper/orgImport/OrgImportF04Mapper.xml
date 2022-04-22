@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+  描述:查询旷世人员同步源数据表
+ @author: Yinzh
+ @date: 2022-04-18
+ -->
+<mapper namespace="com.paasit.pai.core.kuangsOrgData">
+    <select id="kuangsOrgInfoQuery01"
+            useCache="true"
+            parameterType="com.paasit.pai.core.sql.dto.kuangsOrgData.OrgDataF04SQLIM01"
+            resultType="com.paasit.pai.core.vo.orgImport.OrganizationVO">
+        SELECT
+            UUID() as id,
+            deptId as orgCode,
+            deptName as displayName,
+            '4' as orgType,
+            parentId as orgSuperiorCode
+        FROM `dept_info`
+        where `status` = 1
+        ORDER BY parentId
+    </select>
+</mapper>

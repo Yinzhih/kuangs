@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paasit.pai.core.orgImport">
+    <delete id="OrgImportF02SQL01"
+            parameterType="com.paasit.pai.core.sql.dto.orgImport.OrgImportF02SQLIM01" >
+        <foreach collection="orgList" item="item" index="index" separator=";">
+            DELETE FROM
+            organizationObj_organizationObj_06CEP_Relation
+            WHERE
+            id = #{item.id, jdbcType=VARCHAR}
+        </foreach>
+    </delete>
+</mapper>

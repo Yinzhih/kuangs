@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="train2021:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>train2021</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="kuangs-rest-code-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="train2021:war exploded" />
+    </root>
+  </artifact>
+</component>

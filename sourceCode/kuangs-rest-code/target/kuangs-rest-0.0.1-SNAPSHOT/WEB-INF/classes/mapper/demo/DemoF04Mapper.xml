@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+  描述:[demo][人员]查询方法的sql文件
+ @version: 0_1
+ @author: 谷春
+ @date: 2017-10-11 16:07:48
+ -->
+<mapper namespace="com.paasit.pai.core.demo">
+<!--    <cache type="org.mybatis.caches.redis.RedisCache"/>-->
+    <select id="DemoF04SQL01"
+        useCache="true"
+        parameterType="com.paasit.pai.core.sql.dto.demo.DemoF04SQL01IM01"
+        resultType="com.paasit.pai.core.sql.dto.demo.DemoF04SQL01OM01">
+        SELECT
+            t1.id,
+            t1.name,
+            t1.age,
+            t1.salary,
+            t1.birthDay,
+            t1.created_by AS createdBy,
+            t1.created_date AS createdDate,
+            t1.last_modified_by AS lastModifiedBy,
+            t1.last_modified_date AS lastModifiedDate,
+            t1.is_del AS isDel
+        FROM
+            demo AS t1
+        <where>
+            (t1.IS_DEL = 0 OR t1.IS_DEL IS NULL)
+            <if test="id != null and id != ''">
+                 AND t1.id = #{id, jdbcType=VARCHAR}
+            </if>
+            <if test="name != null and name != ''">
+                AND t1.name LIKE CONCAT('%', #{name, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="age != null and age != ''">
+                AND t1.age = #{age, jdbcType=INTEGER}
+            </if>
+            <if test="salary != null and salary != ''">
+                AND t1.salary = #{salary, jdbcType=DECIMAL}
+            </if>
+            <if test="birthDay != null and birthDay != ''">
+                AND t1.birthDay = #{birthDay, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+</mapper>

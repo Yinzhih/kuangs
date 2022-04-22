@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paasit.pai.core.orgImport">
+
+    <insert id="OrgImportF01SQL01" parameterType="com.paasit.pai.core.sql.dto.orgImport.OrgImportF01SQLIM01">
+        INSERT INTO
+            `com_paasit_pai_core_organizationobj` (`id`,
+             `displayName`,
+             `orgType`,
+             `orgCode`,
+             `orgSuperiorCode`)
+             VALUES
+                <foreach collection="orgList" item = "item" index = "index" separator = ",">
+                (
+                #{item.id,jdbcType=VARCHAR},
+                #{item.displayName,jdbcType=VARCHAR},
+                #{item.orgType,jdbcType=INTEGER},
+                #{item.orgCode,jdbcType=VARCHAR},
+                #{item.orgSuperiorCode,jdbcType=VARCHAR}
+                 )
+                </foreach>
+    </insert>
+
+    <insert id="OrgImportF01SQL02"
+    parameterType="com.paasit.pai.core.sql.dto.orgImport.OrgImportF01SQLIM02">
+    INSERT INTO
+    organizationObj_organizationObj_06CEP_Relation (
+    id,
+    aId,
+    bId,
+    created_by,
+    created_date,
+    last_modified_by,
+    last_modified_date,
+    is_del
+    )
+    VALUES
+    <foreach collection="orgRelList" item = "item" index = "index" separator = ",">
+        (
+        #{item.id, jdbcType=VARCHAR},
+        #{item.aId, jdbcType=VARCHAR},
+        #{item.bId, jdbcType=VARCHAR},
+        #{item.createdBy, jdbcType=VARCHAR},
+        #{item.createdDate, jdbcType=TIMESTAMP},
+        #{item.lastModifiedBy, jdbcType=VARCHAR},
+        #{item.lastModifiedDate, jdbcType=TIMESTAMP},
+        #{item.isDel, jdbcType=TINYINT}
+        )
+    </foreach>
+</insert>
+</mapper>

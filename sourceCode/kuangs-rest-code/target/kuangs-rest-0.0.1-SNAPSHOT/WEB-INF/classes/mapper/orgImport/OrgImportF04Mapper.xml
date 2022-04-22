@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paasit.pai.core.orgImport">
+<!--    <cache type="org.mybatis.caches.redis.RedisCache"/>-->
+    <select id="orgImportF04SQL01"
+        useCache="true"
+        parameterType="com.paasit.pai.core.sql.dto.nbsOrgData.NbsOrgDataF04SQLIM01"
+        resultType="com.paasit.pai.core.sql.dto.nbsOrgData.NbsOrgDataF04SQLOM01">
+        SELECT
+            t1.id AS id,
+            t1.displayName,
+            t1.orgType AS orgType,
+            t1.orgCode,
+            t1.orgSuperiorId,
+            t1.orgSuperiorCode AS orgSuperiorCode,
+            t1.orgSuperiorName AS orgSuperiorName
+        FROM
+            com_paasit_pai_core_organizationObj t1
+        where
+            t1.orgCode != ''
+        AND t1.orgCode IS NOT NULL
+        AND t1.is_del = 0
+    </select>
+
+
+
+    <select id="orgImportF04SQL02"
+            parameterType="com.paasit.pai.core.sql.dto.nbsOrgData.NbsOrgDataF04SQLIM02"
+            resultType="com.paasit.pai.core.sql.dto.nbsOrgData.NbsOrgDataF04SQLOM02">
+        SELECT
+            t1.id AS id,
+            t1.aId AS aId,
+            t1.bId AS bId,
+            CONCAT(t1.aId, t1.bId) AS aBId,
+            idPath
+        FROM
+            organizationObj_organizationObj_06CEP_Relation t1
+        WHERE
+            t1.is_del = 0
+    </select>
+</mapper>

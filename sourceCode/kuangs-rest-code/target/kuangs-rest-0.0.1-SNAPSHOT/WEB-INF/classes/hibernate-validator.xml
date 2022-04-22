@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                     http://www.springframework.org/schema/beans/spring-beans.xsd
+                     http://www.springframework.org/schema/context
+                     http://www.springframework.org/schema/context/spring-context.xsd
+                     http://www.springframework.org/schema/mvc
+                     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">  
+        <property name="providerClass"  value="org.hibernate.validator.HibernateValidator"/>  
+        <!--指定国际化配置文件 不设置则默认为classpath下的 ValidationMessages.properties -->  
+        <property name="validationMessageSource" ref="messageSource"/>  
+    </bean>
+    
+    <!-- 国际化资源文件 -->
+    <bean id="messageSource"
+          class="com.paasit.pai.core.common.config.PaiCoreMessageSource">
+          <!-- 下面这个属性不能添加，否则会导致嵌套引用的值出不来 -->
+          <!-- 参考以下网站：http://www.cnblogs.com/matthew-zz/p/6003801.html -->
+        <!-- <property name="useCodeAsDefaultMessage" value="true" /> -->
+        <property name="basenames" >
+            <list>
+                <!-- 使用通配符加载文件 -->
+                <value>classpath*:i18n/*.properties</value>
+                <value>classpath*:i18n/**/*.properties</value>
+            </list>
+        </property>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+</beans>

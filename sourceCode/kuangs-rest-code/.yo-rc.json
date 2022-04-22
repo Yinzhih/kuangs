@@ -1,0 +1,33 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.paasit.pai.core.rest"
+    },
+    "jhipsterVersion": "4.1.1",
+    "baseName": "resources",
+    "packageName": "com.paasit.pai.core.rest",
+    "packageFolder": "com/paasit/pai/core/rest",
+    "serverPort": "8087",
+    "authenticationType": "uaa",
+    "uaaBaseName": "paiCoreUAA",
+    "hibernateCache": "no",
+    "clusteredHttpSession": false,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSocialSignIn": false,
+    "jwtSecretKey": "951aaf24853805a86da829ad6ca344f0b9572149",
+    "enableTranslation": false,
+    "applicationType": "microservice",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "skipClient": true,
+    "skipUserManagement": true,
+    "clientPackageManager": "yarn"
+  }
+}
