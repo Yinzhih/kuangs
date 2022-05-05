@@ -96,7 +96,6 @@ public class OrgImportF01BLogic implements BizLogic<OrgImportF01ReqtM01, OrgImpo
     private ThreadLocal<HashMap<String, OrganizationRelVO>> orgRelABMap = new ThreadLocal<>();
 
 
-
     @Override
     public OrgImportF01RespM01 execute(OrgImportF01ReqtM01 orgImportF01ReqtM01) throws Exception {
 
@@ -156,21 +155,27 @@ public class OrgImportF01BLogic implements BizLogic<OrgImportF01ReqtM01, OrgImpo
                 if (null != orgMap && null != orgMap.get() && null != orgMap.get().get(subCodeId)) {
                     //需要修改的组织
                     updateOrgList.add(hVO);
-                    //如果组织关系有改变则删除组织关系
+                    //如果组织关系有改变则删除组织关系（先删除，后新增）
                     if(null != orgRelBMap.get() && null != codeMap.get(subCodeId) && null != orgRelBMap.get().get(codeMap.get(subCodeId)) && !orgRelBMap.get().get(codeMap.get(subCodeId)).getAId().equals(codeMap.get(supSupId))){
                         OrganizationRelVO OrganizationRelDelVO = new OrganizationRelVO();
                         OrganizationRelDelVO.setId(orgRelBMap.get().get(codeMap.get(subCodeId)).getId());
                         delSupOrgRelList.add(OrganizationRelDelVO);
                         if(null != codeMap.get(supSupId) && null != hVO.getId()) {
-                            addOrgRelList.add(setOrgRel(codeMap.get(supSupId), hVO.getId()));
+                            addOrgRelList.add(setOrgRel(codeMap.get(supSupId), hVO.getId(),0));
                         }
+                    }
+                    //纯粹删除需要删除的组织关系
+                    if(hVO.getIs_del() == 1){
+                        OrganizationRelVO delorg = new OrganizationRelVO();
+                        delorg.setId(orgRelBMap.get().get(codeMap.get(subCodeId)).getId());
+                        delSupOrgRelList.add(delorg);
                     }
                 }else{
                     //新增组织
                     addOrgList.add(hVO);
                     //组织关系
                     if(null != codeMap.get(supSupId) && null != hVO.getId()){
-                        addOrgRelList.add(setOrgRel(codeMap.get(supSupId),hVO.getId()));
+                        addOrgRelList.add(setOrgRel(codeMap.get(supSupId),hVO.getId(),0));
                     }
                 }
             }
@@ -204,6 +209,10 @@ public class OrgImportF01BLogic implements BizLogic<OrgImportF01ReqtM01, OrgImpo
             sql03.setOrgRelList(addOrgRelList);
             updateDAO.execute("OrgImportF01SQL02", sql03);
         }
+
+        orgMap.remove();
+        orgRelBMap.remove();
+        orgRelABMap.remove();
 
         return result;
     }
@@ -264,7 +273,7 @@ public class OrgImportF01BLogic implements BizLogic<OrgImportF01ReqtM01, OrgImpo
     /**
      * 组装新增--------------关系数据
      */
-    private OrganizationRelVO setOrgRel(String aId, String bId) {
+    private OrganizationRelVO setOrgRel(String aId, String bId, Integer isdel) {
         OrganizationRelVO OrganizationRelVO = new OrganizationRelVO();
         if (null != orgRelABMap && null != orgRelABMap.get() && orgRelABMap.get().containsKey(aId + bId)) {
             //关系已经存在，无需处理
@@ -272,6 +281,7 @@ public class OrgImportF01BLogic implements BizLogic<OrgImportF01ReqtM01, OrgImpo
             OrganizationRelVO.setId(UUID.randomUUID().toString());
             OrganizationRelVO.setAId(aId);
             OrganizationRelVO.setBId(bId);
+            OrganizationRelVO.setIs_del(isdel == null ? 0 : isdel);
         }
         return OrganizationRelVO;
     }

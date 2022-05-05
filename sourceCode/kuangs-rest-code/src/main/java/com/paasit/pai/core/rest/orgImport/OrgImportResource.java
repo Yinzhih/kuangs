@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date: 2022/4/15 14:26
  */
 @RestController("OrgImportResource")
-@RequestMapping("/api")
+@RequestMapping("/kuangs-rest/api")
 @Api(value="[组织]资源操作接口")
 public class OrgImportResource {
 

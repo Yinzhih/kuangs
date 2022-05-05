@@ -19,6 +19,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="entityManagerFactory" />
+          <factory-entry name="kuangs-rest" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
@@ -61,7 +62,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: net.minidev:accessors-smart:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.24" level="project" />
     <orderEntry type="library" name="Maven: com.mattbertolini:liquibase-slf4j:2.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.paasit.pai.core:pai-core-common:1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.paasit.pai.core:pai-core-common:1.0-min" level="project" />
     <orderEntry type="library" name="Maven: org.luanlouis.mybatis.plugin:mybatis-enhanced-cache:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.2.5" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis-spring:1.3.0" level="project" />
@@ -72,7 +73,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:4.3.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.3.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:1.13.1.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: com.paasit.pai.core:pai-core-rest-common:1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.paasit.pai.core:pai-core-rest-common:1.0-min" level="project" />
     <orderEntry type="library" name="Maven: org.apache.poi:poi:3.17" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-collections4:4.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.poi:poi-ooxml:3.17" level="project" />

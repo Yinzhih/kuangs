@@ -15,9 +15,9 @@
             deptId as orgCode,
             deptName as displayName,
             '4' as orgType,
-            parentId as orgSuperiorCode
+            parentId as orgSuperiorCode,
+            IF(`status` = 1,0,1) as is_del
         FROM `dept_info`
-        where `status` = 1
         ORDER BY parentId
     </select>
 </mapper>

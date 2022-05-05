@@ -50,4 +50,6 @@ public class OrganizationVO {
      * NBS上级组织名称
      */
     private String orgSuperiorName;
+
+    private Integer is_del;
 }

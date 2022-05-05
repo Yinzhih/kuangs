@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paasit.pai.core.empImport">
+
+    <insert id="EmpImportF01SQL01" parameterType="com.paasit.pai.core.sql.dto.empImport.EmpImportF01SQLIM01">
+        INSERT INTO
+            `com_paasit_pai_core_employeeobj` (`id`,
+             `employeeNo`,
+             `employeeName`,
+             `lastName`,
+             `firstName`,
+             `organizationCode`,
+             `organizationName`,
+             `defaultLanguage`)
+             VALUES
+                <foreach collection="empList" item = "item" index = "index" separator = ",">
+                (
+                #{item.id,jdbcType=VARCHAR},
+                #{item.employeeNo,jdbcType=VARCHAR},
+                #{item.employeeNo,jdbcType=VARCHAR},
+                #{item.lastName,jdbcType=VARCHAR},
+                #{item.firstName,jdbcType=VARCHAR},
+                #{item.organizationCode,jdbcType=VARCHAR},
+                #{item.organizationName,jdbcType=VARCHAR},
+                #{item.defaultLanguage,jdbcType=VARCHAR}
+                 )
+                </foreach>
+    </insert>
+
+    <insert id="EmpImportF01SQL02"
+    parameterType="com.paasit.pai.core.sql.dto.empImport.EmpImportF01SQLIM02">
+    INSERT INTO
+        organizationobj_employeeobj_0238d_relation (
+    id,
+    aId,
+    bId,
+    created_by,
+    created_date,
+    last_modified_by,
+    last_modified_date,
+    is_del
+    )
+    VALUES
+    <foreach collection="emporgList" item = "item" index = "index" separator = ",">
+        (
+        #{item.id, jdbcType=VARCHAR},
+        #{item.aId, jdbcType=VARCHAR},
+        #{item.bId, jdbcType=VARCHAR},
+        #{item.createdBy, jdbcType=VARCHAR},
+        #{item.createdDate, jdbcType=TIMESTAMP},
+        #{item.lastModifiedBy, jdbcType=VARCHAR},
+        #{item.lastModifiedDate, jdbcType=TIMESTAMP},
+        #{item.isDel, jdbcType=TINYINT}
+        )
+    </foreach>
+</insert>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+  描述:查询旷世人员同步源数据表
+ @author: Yinzh
+ @date: 2022-04-18
+ -->
+<mapper namespace="com.paasit.pai.core.kuangsEmpData">
+    <select id="kuangsEmpInfoQuery01"
+            useCache="true"
+            parameterType="com.paasit.pai.core.sql.dto.kuangsEmpData.EmpDataF04SqlIM01"
+            resultType="com.paasit.pai.core.vo.empImport.EmployeeVO">
+        SELECT
+        UUID() as id,
+        `name` as employeeName,
+        IF(CHAR_LENGTH(`name`) &lt;= 3,SUBSTR(`name`,1,1),' ') as lastName,
+        IF(CHAR_LENGTH(`name`) &lt;= 3,SUBSTR(`name`,2,2),`name`) as firstName,
+        jobNumber as employeeNo,
+        deptId as organizationCode,
+        dept as organizationName
+        FROM `employee_info`
+    </select>
+</mapper>

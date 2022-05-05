@@ -11,7 +11,7 @@
     <groupId>com.paasit.pai.core</groupId>
     <artifactId>kuangs-rest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>kuangs-rest</name>
     <prerequisites>
@@ -166,12 +166,12 @@
         <dependency>
             <groupId>com.paasit.pai.core</groupId>
             <artifactId>pai-core-common</artifactId>
-            <version>1.0</version>
+            <version>1.0-min</version>
         </dependency>
         <dependency>
             <groupId>com.paasit.pai.core</groupId>
             <artifactId>pai-core-rest-common</artifactId>
-            <version>1.0</version>
+            <version>1.0-min</version>
         </dependency>
         <dependency>
             <groupId>com.ryantenney.metrics</groupId>

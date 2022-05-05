@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paasit.pai.core.empImport">
+<!--    <cache type="org.mybatis.caches.redis.RedisCache"/>-->
+    <select id="empImportF04SQL01"
+        useCache="true"
+        parameterType="com.paasit.pai.core.sql.dto.nbsEmpData.NbsEmpDataF04SQLIM01"
+        resultType="com.paasit.pai.core.sql.dto.nbsEmpData.NbsEmpDataF04SQLOM01">
+        SELECT
+           id,
+           employeeNo
+        FROM `com_paasit_pai_core_employeeobj`
+        where is_del =0
+    </select>
+
+
+
+    <select id="empImportF04SQL02"
+            parameterType="com.paasit.pai.core.sql.dto.nbsEmpData.NbsEmpDataF04SQLIM02"
+            resultType="com.paasit.pai.core.sql.dto.nbsEmpData.NbsEmpDataF04SQLOM02">
+        SELECT
+            t1.id AS id,
+            t1.aId AS aId,
+            t1.bId AS bId
+        FROM
+            organizationobj_employeeobj_0238d_relation t1
+        WHERE
+            t1.is_del = 0
+    </select>
+</mapper>
