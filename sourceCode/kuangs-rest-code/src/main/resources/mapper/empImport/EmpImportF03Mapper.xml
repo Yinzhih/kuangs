@@ -7,7 +7,7 @@
             parameterType="com.paasit.pai.core.sql.dto.empImport.EmpImportF03SQLIM01" >
         <foreach collection="empList" item="item" index="index" separator=";">
             UPDATE
-            com_paasit_pai_core_employeeobj
+            com_paasit_pai_core_employeeObj
             SET
             employeeNo = #{item.employeeNo,jdbcType=VARCHAR},
             employeeName = #{item.employeeNo,jdbcType=VARCHAR},

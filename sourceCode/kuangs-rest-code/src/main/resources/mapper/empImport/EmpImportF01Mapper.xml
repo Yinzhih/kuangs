@@ -5,7 +5,7 @@
 
     <insert id="EmpImportF01SQL01" parameterType="com.paasit.pai.core.sql.dto.empImport.EmpImportF01SQLIM01">
         INSERT INTO
-            `com_paasit_pai_core_employeeobj` (`id`,
+            `com_paasit_pai_core_employeeObj` (`id`,
              `employeeNo`,
              `employeeName`,
              `lastName`,
@@ -31,7 +31,7 @@
     <insert id="EmpImportF01SQL02"
     parameterType="com.paasit.pai.core.sql.dto.empImport.EmpImportF01SQLIM02">
     INSERT INTO
-        organizationobj_employeeobj_0238d_relation (
+        organizationObj_employeeObj_0238D_Relation (
     id,
     aId,
     bId,

@@ -6,7 +6,7 @@
             parameterType="com.paasit.pai.core.sql.dto.empImport.EmpImportF02SQLIM01" >
         <foreach collection="emporgList" item="item" index="index" separator=";">
             DELETE FROM
-            organizationobj_employeeobj_0238d_relation
+            organizationObj_employeeObj_0238D_Relation
             WHERE
             id = #{item.id, jdbcType=VARCHAR}
         </foreach>
