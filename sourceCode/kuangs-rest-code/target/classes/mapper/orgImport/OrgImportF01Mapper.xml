@@ -5,7 +5,7 @@
 
     <insert id="OrgImportF01SQL01" parameterType="com.paasit.pai.core.sql.dto.orgImport.OrgImportF01SQLIM01">
         INSERT INTO
-            `com_paasit_pai_core_organizationobj` (`id`,
+            `com_paasit_pai_core_organizationObj` (`id`,
              `displayName`,
              `orgType`,
              `orgCode`,
