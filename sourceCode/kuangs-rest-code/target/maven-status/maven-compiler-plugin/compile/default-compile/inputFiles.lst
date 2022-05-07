@@ -22,6 +22,7 @@ D:\Develop\java\旷世\kuangs\sourceCode\kuangs-rest-code\src\main\java\com\paas
 D:\Develop\java\旷世\kuangs\sourceCode\kuangs-rest-code\src\main\java\com\paasit\pai\core\ApplicationWebXml.java
 D:\Develop\java\旷世\kuangs\sourceCode\kuangs-rest-code\src\main\java\com\paasit\pai\core\sql\dto\orgImport\OrgImportF01SQLIM01.java
 D:\Develop\java\旷世\kuangs\sourceCode\kuangs-rest-code\src\main\java\com\paasit\pai\core\sql\dto\nbsEmpData\NbsEmpDataF04SQLOM01.java
+D:\Develop\java\旷世\kuangs\sourceCode\kuangs-rest-code\src\main\java\com\paasit\pai\core\vo\empImport\EmpUserVO.java
 D:\Develop\java\旷世\kuangs\sourceCode\kuangs-rest-code\src\main\java\com\paasit\pai\core\blogic\java\orgImport\OrgImportF01BLogic.java
 D:\Develop\java\旷世\kuangs\sourceCode\kuangs-rest-code\src\main\java\com\paasit\pai\core\sql\dto\empImport\EmpImportF01SQLIM02.java
 D:\Develop\java\旷世\kuangs\sourceCode\kuangs-rest-code\src\main\java\com\paasit\pai\core\sql\dto\nbsOrgData\NbsOrgDataF04SQLOM01.java
@@ -29,4 +30,5 @@ D:\Develop\java\旷世\kuangs\sourceCode\kuangs-rest-code\src\main\java\com\paas
 D:\Develop\java\旷世\kuangs\sourceCode\kuangs-rest-code\src\main\java\com\paasit\pai\core\vo\empImport\EmployeeVO.java
 D:\Develop\java\旷世\kuangs\sourceCode\kuangs-rest-code\src\main\java\com\paasit\pai\core\blogic\java\empImport\EmpImportF01Blogic.java
 D:\Develop\java\旷世\kuangs\sourceCode\kuangs-rest-code\src\main\java\com\paasit\pai\core\sql\dto\nbsOrgData\NbsOrgDataF04SQLOM02.java
+D:\Develop\java\旷世\kuangs\sourceCode\kuangs-rest-code\src\main\java\com\paasit\pai\core\sql\dto\empImport\EmpImportF01SQLIM03.java
 D:\Develop\java\旷世\kuangs\sourceCode\kuangs-rest-code\src\main\java\com\paasit\pai\core\sql\dto\orgImport\OrgImportF03SQLIM01.java

@@ -27,5 +27,9 @@ public class OrganizationRelVO extends SqlAuditBaseDto {
      */
     private String bId;
 
+    private String idPath;
+
+    private Integer level;
+
     private Integer is_del;
 }

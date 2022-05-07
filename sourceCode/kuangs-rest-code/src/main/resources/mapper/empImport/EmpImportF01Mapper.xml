@@ -55,4 +55,33 @@
         )
     </foreach>
 </insert>
+
+    <insert id="EmpImportF01SQL03" parameterType="com.paasit.pai.core.sql.dto.empImport.EmpImportF01SQLIM03">
+        INSERT INTO
+        com_paasit_pai_core_sysUser (
+        id,
+        userName,
+        password,
+        avatar,
+        empId,
+        created_by,
+        created_date,
+        last_modified_by,
+        last_modified_date,
+        is_del)
+        VALUES
+        <foreach collection="list" item = "item" index = "index" separator = ",">
+            (
+            #{item.id,jdbcType=VARCHAR},
+            #{item.userName,jdbcType=VARCHAR},
+            #{item.password,jdbcType=VARCHAR},
+            #{item.avatar,jdbcType=VARCHAR},
+            #{item.empId,jdbcType=VARCHAR},
+            #{item.createdBy,jdbcType=VARCHAR},
+            #{item.createdDate,jdbcType=TIMESTAMP},
+            #{item.lastModifiedBy,jdbcType=VARCHAR},
+            #{item.lastModifiedDate,jdbcType=TIMESTAMP},
+            #{item.isDel,jdbcType=TINYINT})
+        </foreach>
+    </insert>
 </mapper>

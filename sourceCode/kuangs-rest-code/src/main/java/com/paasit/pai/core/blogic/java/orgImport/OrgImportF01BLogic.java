@@ -28,6 +28,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.text.MessageFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 描述：
@@ -142,7 +143,8 @@ public class OrgImportF01BLogic implements BizLogic<OrgImportF01ReqtM01, OrgImpo
                 if (null != orgMap.get() && null != orgMap.get().get(subCompanyCode)) {//当前部门在k2数据库是否存在
                     subCompanyId = orgMap.get().get(subCompanyCode).getId();
                 } else {
-                    subCompanyId = UUID.randomUUID().toString();//不存在创建新的组织id
+                    subCompanyId = SVO.getId();
+//                    subCompanyId = UUID.randomUUID().toString();//不存在创建新的组织id
                 }
                 codeMap.put(subCompanyCode, subCompanyId);//拼接key；orgCode value;36为guid
             }
@@ -174,9 +176,7 @@ public class OrgImportF01BLogic implements BizLogic<OrgImportF01ReqtM01, OrgImpo
                     //新增组织
                     addOrgList.add(hVO);
                     //组织关系
-                    if(null != codeMap.get(supSupId) && null != hVO.getId()){
-                        addOrgRelList.add(setOrgRel(codeMap.get(supSupId),hVO.getId(),0));
-                    }
+                    addOrgRelList.add(setOrgRel(null == codeMap.get(supSupId) ? "00000000-0000-0000-0000-000000000000" : codeMap.get(supSupId),hVO.getId(),0));
                 }
             }
         }
@@ -205,6 +205,25 @@ public class OrgImportF01BLogic implements BizLogic<OrgImportF01ReqtM01, OrgImpo
 
         //新增组织关系
         if (addOrgRelList.size() > 0) {
+
+            List<NbsOrgDataF04SQLOM01> orgList = queryDAO.executeForObjectList("orgImportF04SQL01", null);
+            HashMap<String, OrganizationVO> orgTemp = new HashMap<>();
+            if (!CollectionUtils.isEmpty(orgList)) {
+                for (NbsOrgDataF04SQLOM01 query : orgList) {
+                    OrganizationVO OrganizationVO = new OrganizationVO();
+                    BeanCopierEx.copy(query, OrganizationVO);
+                    orgTemp.put(query.getOrgCode(), OrganizationVO);
+                }
+            }
+            for (OrganizationRelVO orgrel : addOrgRelList) {
+                List<NbsOrgDataF04SQLOM01> currOrg = orgList.stream().filter(m -> m.getId().equals(orgrel.getBId())).collect(Collectors.toList());
+                List<String> str =  getPath(orgTemp, currOrg.get(0).getOrgCode(),new ArrayList<>());
+                Collections.reverse(str);
+                orgrel.setIdPath("/" + String.join("/",str));
+                orgrel.setLevel(str.size());
+            }
+
+
             OrgImportF01SQLIM02 sql03 = new OrgImportF01SQLIM02();
             sql03.setOrgRelList(addOrgRelList);
             updateDAO.execute("OrgImportF01SQL02", sql03);
@@ -284,5 +303,20 @@ public class OrgImportF01BLogic implements BizLogic<OrgImportF01ReqtM01, OrgImpo
             OrganizationRelVO.setIs_del(isdel == null ? 0 : isdel);
         }
         return OrganizationRelVO;
+    }
+
+    private List<String> getPath(HashMap<String, OrganizationVO> orgTemp, String orgCode,List<String> paths){
+
+        String supOrg = orgTemp.get(orgCode).getOrgSuperiorCode();
+
+        paths.add(orgTemp.get(orgCode).getId());
+
+        if(null == supOrg){
+            paths.add("00000000-0000-0000-0000-000000000000");
+        }else{
+            getPath(orgTemp,supOrg,paths);
+        }
+
+        return paths;
     }
 }

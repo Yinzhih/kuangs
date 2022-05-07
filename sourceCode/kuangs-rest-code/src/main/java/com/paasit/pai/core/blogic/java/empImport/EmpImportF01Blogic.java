@@ -5,10 +5,7 @@ import com.paasit.pai.core.blogic.dto.empImport.EmpImportF01RespM01;
 import com.paasit.pai.core.dao.QueryDAO;
 import com.paasit.pai.core.dao.UpdateDAO;
 import com.paasit.pai.core.service.BizLogic;
-import com.paasit.pai.core.sql.dto.empImport.EmpImportF01SQLIM01;
-import com.paasit.pai.core.sql.dto.empImport.EmpImportF01SQLIM02;
-import com.paasit.pai.core.sql.dto.empImport.EmpImportF02SQLIM01;
-import com.paasit.pai.core.sql.dto.empImport.EmpImportF03SQLIM01;
+import com.paasit.pai.core.sql.dto.empImport.*;
 import com.paasit.pai.core.sql.dto.kuangsEmpData.EmpDataF04SqlIM01;
 import com.paasit.pai.core.sql.dto.nbsEmpData.NbsEmpDataF04SQLIM01;
 import com.paasit.pai.core.sql.dto.nbsEmpData.NbsEmpDataF04SQLIM02;
@@ -18,12 +15,14 @@ import com.paasit.pai.core.sql.dto.nbsOrgData.NbsOrgDataF04SQLIM01;
 import com.paasit.pai.core.sql.dto.nbsOrgData.NbsOrgDataF04SQLOM01;
 import com.paasit.pai.core.utils.BeanCopierEx;
 import com.paasit.pai.core.vo.empImport.EmpOrgVO;
+import com.paasit.pai.core.vo.empImport.EmpUserVO;
 import com.paasit.pai.core.vo.empImport.EmployeeVO;
 import com.paasit.pai.core.vo.orgImport.OrganizationVO;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -32,6 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * 描述：
@@ -60,6 +60,14 @@ public class EmpImportF01Blogic implements BizLogic<EmpImportF01ReqtM01, EmpImpo
      */
     @Autowired
     private UpdateDAO updateDAO;
+
+    /**
+     * 密码加密器
+     */
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    private final String password = "888888";
 
 
     /**
@@ -155,6 +163,16 @@ public class EmpImportF01Blogic implements BizLogic<EmpImportF01ReqtM01, EmpImpo
                 EmpImportF01SQLIM01 sql0 = new EmpImportF01SQLIM01();
                 sql0.setEmpList(insertList);
                 updateDAO.execute("EmpImportF01SQL01", sql0);
+
+
+                //用户密码
+                List<EmpUserVO> userVOList = insertList.stream().map(m -> ToUserVO(m)).collect(Collectors.toList());
+                EmpImportF01SQLIM03 sql4 = new EmpImportF01SQLIM03();
+                sql4.setList(userVOList);
+                if (userVOList.size() > 0) {
+                    updateDAO.execute("EmpImportF01SQL03", sql4);
+                }
+
             }
 
             //修改人员
@@ -243,5 +261,15 @@ public class EmpImportF01Blogic implements BizLogic<EmpImportF01ReqtM01, EmpImpo
             }
             orgEmpMap.set(orgEmpTemp);
         }
+    }
+
+
+    private EmpUserVO ToUserVO(EmployeeVO employeeVO) {
+        EmpUserVO userVO = new EmpUserVO();
+        userVO.setId(UUID.randomUUID().toString());
+        userVO.setEmpId(employeeVO.getId());
+        userVO.setUserName(employeeVO.getEmployeeNo());
+        userVO.setPassword(passwordEncoder.encode(password));
+        return userVO;
     }
 }
