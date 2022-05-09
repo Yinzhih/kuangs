@@ -167,7 +167,7 @@ public class OrgImportF01BLogic implements BizLogic<OrgImportF01ReqtM01, OrgImpo
                         }
                     }
                     //纯粹删除需要删除的组织关系
-                    if(hVO.getIs_del() == 1){
+                    if(hVO.getIs_del() == 1 && orgRelBMap.get().get(codeMap.get(subCodeId)) != null){
                         OrganizationRelVO delorg = new OrganizationRelVO();
                         delorg.setId(orgRelBMap.get().get(codeMap.get(subCodeId)).getId());
                         delSupOrgRelList.add(delorg);

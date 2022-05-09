@@ -12,7 +12,8 @@
             displayName = #{item.displayName,jdbcType=VARCHAR},
             orgType = #{item.orgType,jdbcType=INTEGER},
             orgSuperiorCode = #{item.orgSuperiorCode,jdbcType=VARCHAR},
-            orgCode = #{item.orgCode,jdbcType=VARCHAR}
+            orgCode = #{item.orgCode,jdbcType=VARCHAR},
+            is_del = #{item.is_del,jdbcType=VARCHAR}
             WHERE
             id = #{item.id, jdbcType=VARCHAR}
         </foreach>

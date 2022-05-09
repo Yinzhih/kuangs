@@ -9,7 +9,8 @@
              `displayName`,
              `orgType`,
              `orgCode`,
-             `orgSuperiorCode`)
+             `orgSuperiorCode`,
+             `is_del`)
              VALUES
                 <foreach collection="orgList" item = "item" index = "index" separator = ",">
                 (
@@ -17,7 +18,8 @@
                 #{item.displayName,jdbcType=VARCHAR},
                 #{item.orgType,jdbcType=INTEGER},
                 #{item.orgCode,jdbcType=VARCHAR},
-                #{item.orgSuperiorCode,jdbcType=VARCHAR}
+                #{item.orgSuperiorCode,jdbcType=VARCHAR},
+                #{item.is_del,jdbcType=VARCHAR}
                  )
                 </foreach>
     </insert>

@@ -13,6 +13,7 @@
         SELECT
         UUID() as id,
         `name` as employeeName,
+        REPLACE(mobile, "+86-", "") as phone,
         IF(CHAR_LENGTH(`name`) &lt;= 3,SUBSTR(`name`,1,1),' ') as lastName,
         IF(CHAR_LENGTH(`name`) &lt;= 3,SUBSTR(`name`,2,2),`name`) as firstName,
         jobNumber as employeeNo,
