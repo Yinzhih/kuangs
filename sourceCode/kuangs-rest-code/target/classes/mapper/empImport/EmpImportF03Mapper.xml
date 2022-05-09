@@ -11,8 +11,9 @@
             SET
             employeeNo = #{item.employeeNo,jdbcType=VARCHAR},
             employeeName = #{item.employeeNo,jdbcType=VARCHAR},
-            lastName = #{item.lastName,jdbcType=INTEGER},
-            firstName = #{item.firstName,jdbcType=INTEGER},
+            lastName = #{item.lastName,jdbcType=VARCHAR},
+            firstName = #{item.firstName,jdbcType=VARCHAR},
+            phone = #{item.phone,jdbcType=VARCHAR},
             organizationCode = #{item.organizationCode,jdbcType=VARCHAR},
             organizationName = #{item.organizationName,jdbcType=VARCHAR}
             WHERE

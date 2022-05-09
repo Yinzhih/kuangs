@@ -10,6 +10,7 @@
              `employeeName`,
              `lastName`,
              `firstName`,
+             `phone`,
              `organizationCode`,
              `organizationName`,
              `defaultLanguage`)
@@ -21,6 +22,7 @@
                 #{item.employeeNo,jdbcType=VARCHAR},
                 #{item.lastName,jdbcType=VARCHAR},
                 #{item.firstName,jdbcType=VARCHAR},
+                #{item.phone,jdbcType=VARCHAR},
                 #{item.organizationCode,jdbcType=VARCHAR},
                 #{item.organizationName,jdbcType=VARCHAR},
                 #{item.defaultLanguage,jdbcType=VARCHAR}
