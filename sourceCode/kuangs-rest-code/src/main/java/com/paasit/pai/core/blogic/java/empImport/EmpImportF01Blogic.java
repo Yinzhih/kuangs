@@ -129,18 +129,29 @@ public class EmpImportF01Blogic implements BizLogic<EmpImportF01ReqtM01, EmpImpo
                         employeeVO.setId(empMap.get().get(employeeVO.getEmployeeNo()).getId());
                         updateList.add(employeeVO);
                         //
-                        if(employeeVO.getOrganizationCode() != null && orgEmpMap.get() != null && orgEmpMap.get().get(empMap.get().get(employeeVO.getEmployeeNo()).getId()).getAId() !=null && !orgEmpMap.get().get(empMap.get().get(employeeVO.getEmployeeNo()).getId()).getAId().equals(orgMap.get().get(employeeVO.getOrganizationCode()))){
-                            EmpOrgVO empOrgVOI = new EmpOrgVO();
-                            empOrgVOI.setId(UUID.randomUUID().toString());
-                            empOrgVOI.setAId(orgMap.get().get(employeeVO.getOrganizationCode()).getId());
-                            empOrgVOI.setBId(employeeVO.getId());
-                            emporginsertList.add(empOrgVOI);
+                        if(employeeVO.getOrganizationCode() != null && orgEmpMap.get() != null){
+                            if(orgEmpMap.get().get(empMap.get().get(employeeVO.getEmployeeNo()).getId()) == null && orgMap.get().get(employeeVO.getOrganizationCode()) != null){
+                                EmpOrgVO empOrgVOI = new EmpOrgVO();
+                                empOrgVOI.setId(UUID.randomUUID().toString());
+                                empOrgVOI.setAId(orgMap.get().get(employeeVO.getOrganizationCode()).getId());
+                                empOrgVOI.setBId(employeeVO.getId());
+                                emporginsertList.add(empOrgVOI);
+                            }else{
+                                if(orgEmpMap.get().get(empMap.get().get(employeeVO.getEmployeeNo()).getId()) != null &&  orgEmpMap.get().get(empMap.get().get(employeeVO.getEmployeeNo()).getId()).getAId() !=null && !orgEmpMap.get().get(empMap.get().get(employeeVO.getEmployeeNo()).getId()).getAId().equals(orgMap.get().get(employeeVO.getOrganizationCode()))){
+                                    EmpOrgVO empOrgVOI = new EmpOrgVO();
+                                    empOrgVOI.setId(UUID.randomUUID().toString());
+                                    empOrgVOI.setAId(orgMap.get().get(employeeVO.getOrganizationCode()).getId());
+                                    empOrgVOI.setBId(employeeVO.getId());
+                                    emporginsertList.add(empOrgVOI);
 
 
-                            EmpOrgVO empOrgVOD = new EmpOrgVO();
-                            empOrgVOD.setId(orgEmpMap.get().get(empMap.get().get(employeeVO.getEmployeeNo()).getId()).getId());
-                            emporgDelList.add(empOrgVOD);
+                                    EmpOrgVO empOrgVOD = new EmpOrgVO();
+                                    empOrgVOD.setId(orgEmpMap.get().get(empMap.get().get(employeeVO.getEmployeeNo()).getId()).getId());
+                                    emporgDelList.add(empOrgVOD);
+                                }
+                            }
                         }
+
                     }else{
                         //需要新增
                         employeeVO.setDefaultLanguage("zh_CN");
